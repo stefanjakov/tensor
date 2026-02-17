@@ -1,3 +1,4 @@
+#include "tensor.h"
 #include <cuda_runtime.h>
 #include <iostream>
 
@@ -6,7 +7,7 @@ __global__ void addKernel(int *c, int a, int b)
     *c = a + b;
 }
 
-int add(int a, int b)
+int Tensor::Impl::add(int a, int b)
 {
     int  result;
     int *d_result;

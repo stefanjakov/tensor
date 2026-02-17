@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.18)
 # --------------------------------------------
 # Project
 # --------------------------------------------
-project(my_project LANGUAGES CXX CUDA)
+project(tensor LANGUAGES CXX CUDA)
 
 # --------------------------------------------
 # Standards
@@ -36,16 +36,16 @@ set(CMAKE_CUDA_ARCHITECTURES 75)
 # --------------------------------------------
 # Library
 # --------------------------------------------
-add_library(my_lib
-    src/hello.cu
+add_library(tensor_lib
+    src/tensor.cu
 )
 
-target_include_directories(my_lib
+target_include_directories(tensor_lib
     PUBLIC ${PROJECT_SOURCE_DIR}/src
 )
 
 # Required for proper CUDA device linking
-set_target_properties(my_lib PROPERTIES
+set_target_properties(tensor_lib PROPERTIES
     CUDA_SEPARABLE_COMPILATION ON
 )
 
@@ -57,7 +57,7 @@ add_executable(my_app
 )
 
 target_link_libraries(my_app
-    PRIVATE my_lib
+    PRIVATE tensor_lib
 )
 
 # --------------------------------------------
@@ -80,17 +80,17 @@ if(BUILD_TESTING)
 
     FetchContent_MakeAvailable(googletest)
 
-    add_executable(hello_test
-        tests/hello_test.cc
+    add_executable(tensor_test
+        tests/tensor_test.cc
     )
 
-    target_link_libraries(hello_test
+    target_link_libraries(tensor_test
         PRIVATE
-        my_lib
+        tensor_lib
         GTest::gtest_main
     )
 
     include(GoogleTest)
-    gtest_discover_tests(hello_test)
+    gtest_discover_tests(tensor_test)
 
 endif()

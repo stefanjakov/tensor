@@ -1,4 +1,4 @@
-#include "../src/hello.h"
+#include "../src/tensor.h"
 #include <gtest/gtest.h>
 
 TEST(HelloTest, Basic)
